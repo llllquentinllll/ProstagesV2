@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntrepriseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Entreprise
      * @ORM\Column(type="string", length=300)
      */
     private $siteWeb;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stage::class, mappedBy="entreprise")
+     */
+    private $stageEntreprise;
+
+    public function __construct()
+    {
+        $this->stageEntreprise = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Entreprise
     public function setSiteWeb(string $siteWeb): self
     {
         $this->siteWeb = $siteWeb;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stage[]
+     */
+    public function getStageEntreprise(): Collection
+    {
+        return $this->stageEntreprise;
+    }
+
+    public function addStageEntreprise(Stage $stageEntreprise): self
+    {
+        if (!$this->stageEntreprise->contains($stageEntreprise)) {
+            $this->stageEntreprise[] = $stageEntreprise;
+            $stageEntreprise->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStageEntreprise(Stage $stageEntreprise): self
+    {
+        if ($this->stageEntreprise->removeElement($stageEntreprise)) {
+            // set the owning side to null (unless already changed)
+            if ($stageEntreprise->getEntreprise() === $this) {
+                $stageEntreprise->setEntreprise(null);
+            }
+        }
 
         return $this;
     }
