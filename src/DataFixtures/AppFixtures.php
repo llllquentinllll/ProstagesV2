@@ -46,16 +46,7 @@ class AppFixtures extends Fixture
         //
         //DECLARATIONS DES ENTREPRISES
         //
-        $activites=array(   "Informatique orienté objet",
-                            "Programmation web",
-                            "Vendeur de tapis éléctroniques",
-                            "Vendeur de chouchoux automatisés sur plage et balcons",
-                            "Vendeur de tronconneuse roses",
-                            "Vendeurs d'enfants magnétiques IA",
-                            "Createurs d'animatronic",
-                            "Chercheurs quantiques",
-                            "Modelisation de metadonnées",
-                            "Statisticiens et analystes informatique");
+        $listeActivite=array("sportive","billard","prog web", "dev site","aviation","service","artisan");
 
         $entreprises= array();//liste compléte des entreprises
 
@@ -65,7 +56,7 @@ class AppFixtures extends Fixture
 
             $uneEntreprise->setNom($faker->company().$faker->companySuffix());
             $uneEntreprise->setAdresse($faker->address());
-            $uneEntreprise->setActivite($activites[$faker->numberBetween(0,count($activites)-1)]);
+            $uneEntreprise->setActivite($listeActivite[$faker->numberBetween(0,count($listeActivite)-1)]);
             $uneEntreprise->setSiteWeb("https://".$uneEntreprise->getNom().".com");
 
             array_push($entreprises,$uneEntreprise);
@@ -77,66 +68,56 @@ class AppFixtures extends Fixture
         //
         //DECLARATION DES STAGES
         //
-        $metier= array("Developpeur","Programmeur","Designer","Statisticien","Analyste","Informaticien","Codeur","Concepteur");
-        $language = array("C","C++","C#","JAVA","JAVASCRIPT","BASH","UML","CSS","PHP","HTML","SQL","Python","R","Fortran");
-        $logiciel = array("Rstudio","Eclipse","Modelio","Visual Studio Code","Balsamiq","Code:blocks","Symfony","Spider");
-        $plateforme = array("Linux","Unix","Windows");
-        $periode = array("an(s)","minute(s)","heure(s)","seconde(s)","jour(s)","mois","semaine(s)");
+        $code = array("java","c","c++","sql","javascript","php","html");
 
-        for($i=1;$i<75;$i++)//boucle de generation de stage
+        for($i=1;$i<15;$i++)//boucle de generation de stage
         {
-            $stage= new Stage();
+            $unStage= new Stage();
 
             //Generation des variables aleatoires
-            $metierStage=$metier[$faker->numberBetween(0,count($metier)-1)];
-            $languageStage=$language[$faker->numberBetween(0,count($language)-1)];
-            $titreStage=$metierStage." en ".$languageStage;
+            
+            $stageCode=$code[$faker->numberBetween(0,count($code)-1)];
+            $titre="Stage en ".$stageCode;
 
-            $stage->setTitre($titreStage);
-            $stage->setMission($titreStage." sur le logiciel ".$logiciel[$faker->numberBetween(0,count($logiciel)-1)]." sous ".$plateforme[$faker->numberBetween(1,count($plateforme)-1)].", pour une durée de ".$faker->numberBetween(0,12)." ".$periode[$faker->numberBetween(0,count($periode)-1)]);
-            $stage->setEmail($faker->email());
+            $unStage->setTitre($titre);
+            $unStage->setMission($faker->word); //A changer
+            $unStage->setEmail($faker->email());
 
-            $stage->setEntreprise($entreprises[$faker->numberBetween(0,count($entreprises)-1)]);
+            $unStage->setEntreprise($entreprises[$faker->numberBetween(0,count($entreprises)-1)]);
 
-            $nbFormations=$faker->numberBetween(1,count($formations)-1);
-            $formationsDejaSelectionnees = array();
+            $nombreFormation=$faker->numberBetween(1,count($formations)-1);
 
-            for($y=0;$y<=$nbFormations;$y++)//boucle d'ajout des formations
-            {
-                $boolean="FALSE";
+            $unStage->addFormation($formations[$nombreFormation]);
 
-                $formationTiree=$faker->numberBetween(0,count($formations)-1);
+            // for($j=0;$j<=$nombreFormation;$j++)//boucle d'ajout des formations
+            // {
+            //     $boolean="FALSE";
 
-                for($z=0;$z<count($formationsDejaSelectionnees);$z++)//boucle de verification des formations deja ajoutées
-                {
-                    if($formationsDejaSelectionnees[$z]==$formationTiree)
-                    {
-                        $boolean = "TRUE";
-                    }
-                }
+            //     $formationTiree=$faker->numberBetween(0,count($formations)-1);
 
-                if($boolean=="FALSE")
-                {
-                    array_push($formationsDejaSelectionnees,$formationTiree);
-                    $stage->addFormation($formations[$formationTiree]);
-                }
-                else
-                {
-                    $y--;
-                }
+            //     for($z=0;$z<count($formationsDejaSelectionnees);$z++)//boucle de verification des formations deja ajoutées
+            //     {
+            //         if($formationsDejaSelectionnees[$z]==$formationTiree)
+            //         {
+            //             $boolean = "TRUE";
+            //         }
+            //     }
 
-            }
+            //     if($boolean=="FALSE")
+            //     {
+            //         array_push($formationsDejaSelectionnees,$formationTiree);
+            //         $stage->addFormation($formations[$formationTiree]);
+            //     }
+            //     else
+            //     {
+            //         $y--;
+            //     }
 
-            $manager->persist($stage);
+            // }
+
+            $manager->persist($unStage);
         }
 
         $manager->flush();
-    }
-}
-
-        
-
-
-    
     }
 }
