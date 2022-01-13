@@ -61,9 +61,9 @@ class AccueilController extends AbstractController
      */
     public function detailStage($id_stage): Response
     {
-        $uneEntreprise= $this->getDoctrine()->getRepository(Stage::class)->find($id_stage);
+        $unStage= $this->getDoctrine()->getRepository(Stage::class)->find($id_stage);
         return $this->render('accueil/detailStage.html.twig', [
-            'uneEntreprise$uneEntreprise'=>$uneEntreprise
+            'unStage'=>$unStage
         ]);
     }
 

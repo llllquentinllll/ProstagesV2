@@ -2,6 +2,26 @@
 
 {% block title %}Hello EntreprisesController!{% endblock %}
 
+
+{% block nav %}
+         <ul class="nav justify-content-center">
+             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="stages">Stage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="entreprises">Entreprise</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/formations">Formation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Accueil</a>
+            </li>
+            
+        </ul>
+{% endblock %}
+
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
