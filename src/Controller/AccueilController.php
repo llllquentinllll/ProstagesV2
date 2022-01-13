@@ -29,7 +29,7 @@ class AccueilController extends AbstractController
     public function entreprise(): Response
     {
         return $this->render('accueil/entreprise.html.twig', [
-            'controller_name' => 'EntreprisesController',
+            
         ]);
     }
 
@@ -49,8 +49,17 @@ class AccueilController extends AbstractController
     public function stage(): Response
     {
         $stages= $this->getDoctrine()->getRepository(Stage::class)->findAll();
-        return $this->render('accueil/stage.html.twig', [
-            'controller_name' => 'StagesController', 'liste_stages'=>$stages
+        return $this->render('accueil/stage.html.twig', ['liste_stages'=>$stages]);
+    }
+
+    /**
+     * @Route("/accueil/stages/{id_stage}", name="detailStage")
+     */
+    public function detailStage($id_stage): Response
+    {
+        $unStage= $this->getDoctrine()->getRepository(Stage::class)->find($id_stage);
+        return $this->render('accueil/detailStage.html.twig', [
+            'unStage'=>$unStage
         ]);
     }
 }

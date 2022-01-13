@@ -17,7 +17,7 @@
             <div class="card-body">
                 <h5 class="card-title">Mission: {{stage.mission}}</h5><br>
                 <h5 class="card-title">Email {{stage.email}} </h5>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="{{ path('detailStage', {'id_stage': stage.id}) }}" class="btn btn-primary">Voir</a>
             </div>
         </div>    
     {% endfor %}
