@@ -16,6 +16,8 @@ class AccueilController extends AbstractController
     /**
      * @Route("/", name="accueil")
      */
+
+     
     public function index(): Response
     {
         return $this->render('accueil/index.html.twig', [
@@ -28,9 +30,11 @@ class AccueilController extends AbstractController
      */
     public function entreprise(): Response
     {
-        return $this->render('accueil/entreprise.html.twig', [
-            
-        ]);
+
+        $liste_entreprises= $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
+        
+
+        return $this->render('accueil/entreprise.html.twig', ['liste_entreprises'=>$liste_entreprises]);
     }
 
     /**
@@ -57,9 +61,20 @@ class AccueilController extends AbstractController
      */
     public function detailStage($id_stage): Response
     {
-        $unStage= $this->getDoctrine()->getRepository(Stage::class)->find($id_stage);
+        $uneEntreprise= $this->getDoctrine()->getRepository(Stage::class)->find($id_stage);
         return $this->render('accueil/detailStage.html.twig', [
-            'unStage'=>$unStage
+            'uneEntreprise$uneEntreprise'=>$uneEntreprise
+        ]);
+    }
+
+    /**
+     * @Route("/accueil/entreprises/{id_entreprise}", name="detailEntreprise")
+     */
+    public function detailEntreprise($id_entreprise): Response
+    {
+        $uneEntreprise= $this->getDoctrine()->getRepository(Entreprise::class)->find($id_entreprise);
+        return $this->render('accueil/detailEntreprise.html.twig', [
+            'uneEntreprise'=>$uneEntreprise
         ]);
     }
 }
