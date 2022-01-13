@@ -9,12 +9,19 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Cette page affichera le descriptif du stage ayant pour identifian: {{idRessource}}! </h1>
+    <h1>Stages Disponible: </h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Temp/symfony/ProstagesV2/src/Controller/StagesController.php'|file_link(0) }}">src/Controller/StagesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Temp/symfony/ProstagesV2/templates/stages/index.html.twig'|file_link(0) }}">templates/stages/index.html.twig</a></code></li>
-    </ul>
+    {% for stage in liste_stages %}
+        <div class="card">
+            <h5 class="card-header">{{stage.titre}}</h5>
+            <div class="card-body">
+                <h5 class="card-title">Mission: {{stage.mission}}</h5><br>
+                <h5 class="card-title">Email {{stage.email}} </h5>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>    
+    {% endfor %}
+
+
 </div>
 {% endblock %}
