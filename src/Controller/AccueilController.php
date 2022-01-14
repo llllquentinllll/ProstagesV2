@@ -42,8 +42,9 @@ class AccueilController extends AbstractController
      */
     public function formation(): Response
     {
+        $liste_formations= $this->getDoctrine()->getRepository(Formation::class)->findAll();
         return $this->render('accueil/formation.html.twig', [
-            'controller_name' => 'FormationsController',
+            'liste_formations'=>$liste_formations
         ]);
     }
 
@@ -75,6 +76,17 @@ class AccueilController extends AbstractController
         $uneEntreprise= $this->getDoctrine()->getRepository(Entreprise::class)->find($id_entreprise);
         return $this->render('accueil/detailEntreprise.html.twig', [
             'uneEntreprise'=>$uneEntreprise
+        ]);
+    }
+
+    /**
+     * @Route("/accueil/formations/{id_formation}", name="stageFormation")
+     */
+    public function stageFormation($id_formation): Response
+    {
+        $uneFormation= $this->getDoctrine()->getRepository(Formation::class)->find($id_formation);
+        return $this->render('accueil/stageFormation.html.twig', [
+            'uneFormation'=>$uneFormation
         ]);
     }
 }
