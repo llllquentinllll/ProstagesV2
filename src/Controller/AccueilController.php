@@ -58,7 +58,7 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/accueil/stages/{id_stage}", name="detailStage")
+     * @Route("/stages/{id_stage}", name="detailStage")
      */
     public function detailStage($id_stage): Response
     {
@@ -69,7 +69,7 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/accueil/entreprises/{id_entreprise}", name="detailEntreprise")
+     * @Route("/entreprises/{id_entreprise}", name="detailEntreprise")
      */
     public function detailEntreprise($id_entreprise): Response
     {
@@ -80,7 +80,7 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/accueil/formations/{id_formation}", name="stageFormation")
+     * @Route("/formations/{id_formation}", name="stageFormation")
      */
     public function stageFormation($id_formation): Response
     {
@@ -88,6 +88,16 @@ class AccueilController extends AbstractController
         return $this->render('accueil/stageFormation.html.twig', [
             'uneFormation'=>$uneFormation
         ]);
+    }
+
+    /**
+     * @Route("/ajouterEntreprise", name="formAjouterEntreprise")
+     */
+    public function formAjouterEntreprise(): Response
+    {
+        $k = 3;
+
+        return $this->render('accueil/ajouterEntreprise.html.twig',['k'=>$k]);
     }
 }
     
