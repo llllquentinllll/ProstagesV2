@@ -11,6 +11,14 @@ use App\Entity\Formation;
 use App\Entity\Stage;
 
 
+use Doctrine\Persistence\ObjectManager;
+
+use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\HttpFoundation\Request;
+
+
+
 class AccueilController extends AbstractController
 {
     /**
@@ -93,11 +101,33 @@ class AccueilController extends AbstractController
     /**
      * @Route("/ajouterEntreprise", name="formAjouterEntreprise")
      */
-    public function formAjouterEntreprise(): Response
+    public function formAjouterEntreprise(Request $request, ObjectManager $manager): Response
     {
-        $k = 3;
+        $entreprise= new Entreprise();
 
-        return $this->render('accueil/ajouterEntreprise.html.twig',['k'=>$k]);
+        $formulaireEntreprise=$this->createFormBuilder($entreprise)
+            ->add('nom')
+            ->add('adresse')
+            ->add('activite')
+            ->add("siteWeb")
+            ->getForm();
+
+            $formulaireEntreprise->handleRequest($request);
+
+            if($formulaireEntreprise->isSubmitted())
+            {
+                
+                $manager->persist($entreprise);
+                $manager->flush();
+
+                return $this->redirectToRoute('accueil');
+            }
+
+
+        
+        return $this->render('accueil/ajouterEntreprise.html.twig', [
+            'unFormulaire'=>$formulaireEntreprise->createView()
+        ]);
     }
 }
     
