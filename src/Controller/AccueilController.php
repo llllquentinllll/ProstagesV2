@@ -13,9 +13,18 @@ use App\Entity\Stage;
 
 use Doctrine\Persistence\ObjectManager;
 
-use Doctrine\ORM\EntityManagerInterface;
+
 
 use Symfony\Component\HttpFoundation\Request;
+
+
+
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+use Doctrine\ORM\EntityManagerInterface;
 
 
 
@@ -101,9 +110,42 @@ class AccueilController extends AbstractController
     /**
      * @Route("/ajouterEntreprise", name="formAjouterEntreprise")
      */
-    public function formAjouterEntreprise(Request $request, ObjectManager $manager): Response
+    public function formAjouterEntreprise(Request $request, EntityManagerInterface $manager): Response
     {
         $entreprise= new Entreprise();
+
+        $formulaireEntreprise=$this->createFormBuilder($entreprise)
+            ->add('nom')
+            ->add('adresse')
+            ->add('activite')
+            ->add("siteWeb")
+            ->getForm();
+
+            $formulaireEntreprise->handleRequest($request);
+            dump($entreprise);
+
+            if($formulaireEntreprise->isSubmitted())
+            {
+                
+                $manager->persist($entreprise);
+                $manager->flush();
+
+                return $this->redirectToRoute('accueil');
+            }
+
+
+        
+        return $this->render('accueil/ajouterEntreprise.html.twig', [
+            'unFormulaire'=>$formulaireEntreprise->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/modifierEntreprise/{id}", name="formModifierEntreprise")
+     */
+    public function formModifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise): Response
+    {
+        
 
         $formulaireEntreprise=$this->createFormBuilder($entreprise)
             ->add('nom')

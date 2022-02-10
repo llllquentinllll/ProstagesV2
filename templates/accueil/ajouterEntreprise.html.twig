@@ -10,7 +10,17 @@
 
 <div class="example-wrapper">
     <h1>Formulaire pour ajouter une entreprise :</h1>
-    {{form(unFormulaire)}}
+  
+{{ form_start(unFormulaire) }}
+
+
+{{ form_row(unFormulaire.nom)}}
+{{ form_row(unFormulaire.adresse)}}
+{{ form_row(unFormulaire.activite)}}
+{{ form_row(unFormulaire.siteWeb)}}
+
+<button type="submit" class="btn btn-dark">Enregistrer</button>
+{{ form_end(unFormulaire) }}
 </div>
 
 {% endblock %}
