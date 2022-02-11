@@ -124,7 +124,7 @@ class AccueilController extends AbstractController
             $formulaireEntreprise->handleRequest($request);
             dump($entreprise);
 
-            if($formulaireEntreprise->isSubmitted())
+            if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid() )
             {
                 
                 $manager->persist($entreprise);
@@ -141,13 +141,13 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/modifierEntreprise/{id}", name="formModifierEntreprise")
+     * @Route("/modifierEntreprise/{id_entreprise}", name="formModifierEntreprise")
      */
-    public function formModifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $entreprise): Response
+    public function formModifierEntreprise(Request $request, EntityManagerInterface $manager, Entreprise $id_entreprise): Response
     {
         
 
-        $formulaireEntreprise=$this->createFormBuilder($entreprise)
+        $formulaireEntreprise=$this->createFormBuilder($id_entreprise)
             ->add('nom')
             ->add('adresse')
             ->add('activite')
@@ -156,10 +156,10 @@ class AccueilController extends AbstractController
 
             $formulaireEntreprise->handleRequest($request);
 
-            if($formulaireEntreprise->isSubmitted())
+            if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
             {
                 
-                $manager->persist($entreprise);
+                $manager->persist($id_entreprise);
                 $manager->flush();
 
                 return $this->redirectToRoute('accueil');

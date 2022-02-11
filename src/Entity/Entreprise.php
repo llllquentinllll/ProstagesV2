@@ -7,6 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraint\NotBlank;
+use Symfony\Component\Validator\Constraint\Url;
+
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
  */
@@ -21,21 +28,26 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=300)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide!")
+     * @Assert\Length(min=4, minMessage="Le nom doit faire plus de 4 caractères!")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=300)
+     * @Assert\Regex(pattern='# [0-9]{5} #')
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=300)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide!")
      */
     private $activite;
 
     /**
      * @ORM\Column(type="string", length=300)
+     * @Assert\Url(message="Ce champs doit être une url")
      */
     private $siteWeb;
 
@@ -59,7 +71,7 @@ class Entreprise
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -71,7 +83,7 @@ class Entreprise
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
 
@@ -83,7 +95,7 @@ class Entreprise
         return $this->activite;
     }
 
-    public function setActivite(string $activite): self
+    public function setActivite(?string $activite): self
     {
         $this->activite = $activite;
 
@@ -95,7 +107,7 @@ class Entreprise
         return $this->siteWeb;
     }
 
-    public function setSiteWeb(string $siteWeb): self
+    public function setSiteWeb(?string $siteWeb): self
     {
         $this->siteWeb = $siteWeb;
 
