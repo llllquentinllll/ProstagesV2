@@ -26,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\EntrepriseFormType;
+use App\Form\StageFormType;
 
 
 
@@ -212,8 +213,36 @@ class AccueilController extends AbstractController
             ]);
 
     }
-}
 
+    /**
+     * @Route("/ajouterStage", name="formAjouterStage")
+     */
+    public function formAjouterStage(Request $request, EntityManagerInterface $manager): Response
+    {
+        
+
+        $stage= New Stage();
+
+        $formulaireStage= $this->createForm(StageFormType::class, $stage);
+
+
+        $formulaireStage->handleRequest($request);
+
+        if( $formulaireStage->isSubmitted() && $formulaireStage->isValid())
+        {
+            $manager->persist($stage);
+            $manager->persist($stage->getEntreprise());
+            $manager->flush();
+
+            return $this -> redirectToRoute('accueil');
+        }
+        
+        return $this->render('accueil/ajouterStage.html.twig', [
+            'unFormulaire'=>$formulaireStage->createView()
+        ]);
+
+    }
+}
 
 
     
