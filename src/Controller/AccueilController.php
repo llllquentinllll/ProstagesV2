@@ -169,7 +169,7 @@ class AccueilController extends AbstractController
     {
         
 
-        $formulaireEntreprise=$this->createFormBuilder($id_entreprise)
+        /*$formulaireEntreprise=$this->createFormBuilder($id_entreprise)
             ->add('nom')
             ->add('adresse')
             ->add('activite')
@@ -192,7 +192,29 @@ class AccueilController extends AbstractController
         return $this->render('accueil/ajouterEntreprise.html.twig', [
             'unFormulaire'=>$formulaireEntreprise->createView()
         ]);
+        */
+
+        $formulaireEntreprise= $this->createForm(EntrepriseFormType::class,$id_entreprise);
+        
+        $formulaireEntreprise->handleRequest($request);
+
+            if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
+            {
+                
+                $manager->persist($id_entreprise);
+                $manager->flush();
+
+                return $this->redirectToRoute('accueil');
+            }
+
+            return $this->render('accueil/ajouterEntreprise.html.twig', [
+                'unFormulaire'=>$formulaireEntreprise->createView()
+            ]);
+
     }
 }
+
+
+
     
 
