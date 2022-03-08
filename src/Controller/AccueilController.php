@@ -25,6 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\EntrepriseFormType;
 
 
 
@@ -112,7 +113,7 @@ class AccueilController extends AbstractController
      */
     public function formAjouterEntreprise(Request $request, EntityManagerInterface $manager): Response
     {
-        $entreprise= new Entreprise();
+        /*$entreprise= new Entreprise();
 
         $formulaireEntreprise=$this->createFormBuilder($entreprise)
             ->add('nom')
@@ -138,6 +139,27 @@ class AccueilController extends AbstractController
         return $this->render('accueil/ajouterEntreprise.html.twig', [
             'unFormulaire'=>$formulaireEntreprise->createView()
         ]);
+        */
+
+        $entreprise= New Entreprise();
+
+        $formulaireEntreprise= $this->createForm(EntrepriseFormType::class,$entreprise);
+
+
+        $formulaireEntreprise->handleRequest($request);
+
+        if( $formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
+        {
+            $manager->persist($entreprise);
+            $manager->flush();
+
+            return $this -> redirectToRoute('accueil');
+        }
+        
+        return $this->render('accueil/ajouterEntreprise.html.twig', [
+            'unFormulaire'=>$formulaireEntreprise->createView()
+        ]);
+
     }
 
     /**
