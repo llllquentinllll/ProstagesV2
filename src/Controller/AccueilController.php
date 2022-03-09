@@ -110,7 +110,7 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/ajouterEntreprise", name="formAjouterEntreprise")
+     * @Route("/admin/ajouterEntreprise", name="formAjouterEntreprise")
      */
     public function formAjouterEntreprise(Request $request, EntityManagerInterface $manager): Response
     {
