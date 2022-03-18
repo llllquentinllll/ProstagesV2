@@ -14,9 +14,10 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+
         $quentin= new User();
-        $quentin->setEmail("quentin@free.fr");
-        $quentin->setRoles(['ROLE_USER','ROLE_ADMIN']);
+        $quentin->setEmail("quentin33@free.fr");
+        $quentin->setRoles(["ROLE_USER" , "ROLE_ADMIN"]);
         $quentin->setPassword('$2y$10$XWwzHwhayWI6QV8XeJaXDeD4aq.hQGzVj0vQALBUYuUguONAE2.Rq'); //Mdp: quentin
         $manager->persist($quentin);
 
