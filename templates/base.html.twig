@@ -35,8 +35,23 @@
                 <a class="nav-link" href="/admin/ajouterEntreprise">Ajouter Entreprise</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/ajouterStage">Ajouter Stage</a>
+                <a class="nav-link" href="/admin/ajouterStage">Ajouter Stage</a>
             </li>
+
+            {% if is_granted('ROLE_USER') %}
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Déconnexion</a>
+            </li>
+            {% else %}
+             <li class="nav-item">
+                <a class="nav-link" href="/login">Connexion</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/inscription">Inscription</a>
+            </li>
+
+
             
         </ul>
         {% endblock %}

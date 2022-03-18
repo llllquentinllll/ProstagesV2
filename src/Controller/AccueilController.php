@@ -215,7 +215,7 @@ class AccueilController extends AbstractController
     }
 
     /**
-     * @Route("/ajouterStage", name="formAjouterStage")
+     * @Route("/admin/ajouterStage", name="formAjouterStage")
      */
     public function formAjouterStage(Request $request, EntityManagerInterface $manager): Response
     {
