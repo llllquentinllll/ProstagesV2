@@ -24,7 +24,7 @@ class <?= $class_name; ?> extends AbstractFormLoginAuthenticator<?= $password_au
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'login';
 
 <?= $user_is_entity ? "    private \$entityManager;\n" : null ?>
     private $urlGenerator;

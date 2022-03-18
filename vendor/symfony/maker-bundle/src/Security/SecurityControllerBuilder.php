@@ -23,7 +23,7 @@ final class SecurityControllerBuilder
 {
     public function addLoginMethod(ClassSourceManipulator $manipulator): void
     {
-        $loginMethodBuilder = $manipulator->createMethodBuilder('login', 'Response', false, ['@Route("/login", name="app_login")']);
+        $loginMethodBuilder = $manipulator->createMethodBuilder('login', 'Response', false, ['@Route("/login", name="login")']);
 
         $manipulator->addUseStatementIfNecessary(Response::class);
         $manipulator->addUseStatementIfNecessary(Route::class);
