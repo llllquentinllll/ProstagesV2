@@ -31,14 +31,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Accueil</a>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link" href="/admin/ajouterEntreprise">Ajouter Entreprise</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/admin">Administration</a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+            <li class="nav-item">
                 <a class="nav-link" href="/adminUser/ajouterStage">Ajouter Stage</a>
             </li>
-
-            {% if is_granted('ROLE_USER') %}
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Déconnexion</a>
             </li>
