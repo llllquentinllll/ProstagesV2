@@ -20,10 +20,14 @@
                 <td>{{ formation.id }}</td>
                 <td>{{ formation.nomCourt }}</td>
                 <td>{{ formation.nomLong }}</td>
+                 
                 <td>
                     <a href="{{ path('formation_show', {'id': formation.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('formation_edit', {'id': formation.id}) }}">edit</a>
+                    {% endif %}
                 </td>
+                
             </tr>
         {% else %}
             <tr>
@@ -32,6 +36,11 @@
         {% endfor %}
         </tbody>
     </table>
-
+{% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('formation_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
+
+            
+           
+           

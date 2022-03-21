@@ -27,6 +27,12 @@ class AppFixtures extends Fixture
         $matias->setPassword('$2y$10$FTMTVUUvqR7q/3yJLMnfquXZ6R//rAC5rdS3quvXC00zGvSZMS5iu'); //Mdp: matias
         $manager->persist($matias);
 
+        $denise= new User();
+        $denise->setEmail("denise@free.fr");
+        $denise->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
+        $denise->setPassword('$2y$10$1ualufgb7rRbqQTNPvDqXebJ4SSXYbi2nF0q1U.EpAeuN0FSS8k82'); //Mdp: mdp
+        $manager->persist($denise);
+
         $faker= \Faker\Factory::create('fr_FR');
     
         // Gestion Entité Formation:
